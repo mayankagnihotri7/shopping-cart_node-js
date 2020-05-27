@@ -17,16 +17,19 @@ let userSchema = new Schema({
         type: String,
         required: true
     },
-    admin: false,
+    admin: {
+        type: Boolean,
+        default: false
+    },
     bio: String
 }, {timestamps: true});
 
 // Hashing password.
 userSchema.pre('save', async function (next) {
     try {
-        console.log('pre');
     
         if (this.password && this.isModified('password')) {
+            
         this.password = await bcrypt.hash(this.password, 10);
     
         return next();

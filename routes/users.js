@@ -20,7 +20,7 @@ router.get("/login", (req, res, next) => {
 });
 
 router.post('/login', async (req,res,next) => {
-  
+  console.log('Inside login page.');
 })
 
 module.exports = router;
