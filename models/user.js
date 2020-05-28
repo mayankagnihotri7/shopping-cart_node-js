@@ -21,6 +21,11 @@ let userSchema = new Schema({
         type: Boolean,
         default: false
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    verification: String,
     bio: String
 }, {timestamps: true});
 

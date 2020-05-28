@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <a href="/">Home</a>
+
+        <form action="/users/<%= email %>/verify" method="post">
+            <input type="text" name="verification" placeholder="Enter verification code">
+
+            <button class="btn waves-effect waves-light" type="submit" name="action">Verify
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+
+    </div>
+</body>
+
+</html>

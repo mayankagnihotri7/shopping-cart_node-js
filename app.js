@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: "keyboard cat", //to hash your cookie.
-    resave: false, //whether to extend session duration.
+    resave: true, //whether to extend session duration.
     saveUninitialized: false, //to create a blank session before logging in.
   })
 );
@@ -49,6 +49,7 @@ app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use(auth.checkLogged);
+app.use(auth.userInfo);
 app.use('/shopping', shoppingRouter);
 
 // catch 404 and forward to error handler

@@ -2,8 +2,12 @@ let express = require('express');
 let router = express.Router();
 
 router.get('/', (req,res,next) => {
-
-    console.log('inside profile router.');
+    if(!req.userId.isVerified){
+        console.log("user not verified");
+    //    return res.send("please verify first")
+       return res.render("verifyForm",{email:req.userId.email})
+    }
+    console.log("inside profile router.", req.userId.isVerified);
 
     res.render('shopping');
     
