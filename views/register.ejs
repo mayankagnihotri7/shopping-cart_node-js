@@ -1,8 +1,17 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<div class="container">
 <a href="/">Home</a>
 
 <form action="/users/register" method="post">
     <input type="text" name="username" placeholder="Enter desired username">
     <input type="email" name="email" placeholder="Enter your email...">
     <input type="password" name="password" placeholder="Enter password">
-    <input type="submit" value="Register">
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+    </button>
 </form>
+
+</div>

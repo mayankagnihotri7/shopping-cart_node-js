@@ -15,7 +15,8 @@ passport.use(
           username : profile.username,
           email: profile._json.email,
           bio: profile._json.bio,
-          photos: profile.photos[0].value
+          photos: profile.photos[0].value,
+          id: profile.id
       }
       
       if (newUser.email === "mayankagnihotri7@gmail.com") {
@@ -32,7 +33,8 @@ passport.use(
                     bio: profile._json.bio,
                     photos: profile.photos[0].value,
                     password: process.env.PASSWORD,
-                    admin: true
+                    admin: true,
+                    id: profile.id
                   },(err, admin) => {
                     
                     done(null, admin);
