@@ -3,8 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 let auth = require('../middlewares/auth');
 let nodemailer = require('nodemailer');
-
-
+let smtpTransport = require('nodemailer-smtp-transport');
 
 /* GET users listing. */
 // Register form.
@@ -16,29 +15,29 @@ router.post('/register', async (req,res,next) => {
   
   const admins = ["mayankagnihotri7@gmail.com"]
 
-
-  let transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
+  let transporter = nodemailer.createTransport(smtpTransport({
+    service: 'gmail',
     auth: {
-      user: "3f1c7c85db0c99",
-      pass: "4cc539e9768473",
+      user: process.env.GMAIL_ID,
+      pass: process.env.GMAIL_PASS,
     },
-  });
+  }));
 
   var verification = Math.random().toString(36).slice(2);
 
   let mailOptions = {
-    from: "from@example.com",
+    from: process.env.GMAIL_ID,
     to: req.body.email,
     subject: "This is a test mail.",
     test: "First mail via nodemailer",
     html: `<h1>From nodemailer</h1> ${verification}`,
   };
+
   req.body.verification = verification;
+
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) return console.log(err);
-    console.log("Message sent: %", info.messageId);
+    console.log("Message sent: %", info.response);
   });
 
   if(admins.includes(req.body.email)){
