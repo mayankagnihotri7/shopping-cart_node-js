@@ -15,6 +15,7 @@ router.post('/register', async (req,res,next) => {
   
   const admins = ["mayankagnihotri7@gmail.com"]
 
+  // Nodemailer
   let transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
     auth: {
