@@ -36,6 +36,38 @@ router.post("/:id/profile", upload.single("image"), (req, res, next) => {
 
 });
 
+// Updating user profile.
+router.get('/:id/profile/edit', async (req,res,next) => {
+    
+    try {
+        
+        let user = await User.findById(req.params.id);
+
+        res.render("editProfile");
+
+    } catch (error) {
+        
+        next(error);
+
+    }
+
+})
+
+router.post('/:id/profile/edit', async (req,res, next) => {
+    
+    try {
+
+        let user = await User.findByIdAndUpdate (req.params.id, req.body);
+        res.redirect(`/shopping/${user.id}/profile`);
+
+    } catch (error) {
+        
+        next (error);
+
+    }
+
+})
+
 // Rendering shopping page if verified.
 router.get('/', (req,res,next) => {
     if(!req.userId.isVerified){

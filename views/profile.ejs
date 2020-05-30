@@ -3,12 +3,10 @@
 
 <link rel="stylesheet" href="/stylesheets/style.css">
 
-<div class="container">
     <div class="profile-color">
         <img src="/uploads/<%=  user.image %>" class="profile-image" />
         <h1 class="profile-name">Name: <%= user.username %></h1>
         <h2 class="profile-name">E-mail: <%= user.email %></h2>
         <button class="profile-button"><a href="/shopping" class="button-text">Shop</a></button>
-        <button class="profile-button"><a href="/shopping/:id/profile/edit" class="button-text">Edit Profile</a></button>
+        <button class="profile-button"><a href="/shopping/<%= user.id %>/profile/edit" class="button-text">Edit Profile</a></button>
     </div>
-</div>
