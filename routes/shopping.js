@@ -7,11 +7,11 @@ let User = require('../models/user');
 // Multer
 const storage = multer.diskStorage({
   destination: (req, file, callBack) => {
-    callBack(null, path.join(__dirname, "../public/images"));
-  },
-  filename: (req, file, callBack) => {
-    callBack(null, file.originalname);
-  },
+    callBack(null, path.join(__dirname, "../public/images/uploads"));
+},
+filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+},
 });
 
 var upload = multer({ storage: storage });
@@ -23,12 +23,13 @@ router.get('/:id/profile', async (req,res, next) => {
 })
 
 router.post("/:id/profile", upload.single("image"), (req, res, next) => {
+
   console.log("Body", req.body);
   let shoppingImage = req.body;
   shoppingImage.image = req.file.filename;
   console.log("file path", shoppingImage);
   
-  User.findByIdAndUpdate(req.params.id, shoppingImage, (err, user) => {
+  User.findByIdAndUpdate(req.params.id, {image: shoppingImage.image}, (err, user) => {
       if (err) return err;
       console.log(user, 'user here');
       res.render('profile');
@@ -36,11 +37,11 @@ router.post("/:id/profile", upload.single("image"), (req, res, next) => {
 
 });
 
-// Updating user profile.
+// // Updating user profile.
 router.get('/:id/profile/edit', async (req,res,next) => {
     
     try {
-        
+    
         let user = await User.findById(req.params.id);
 
         res.render("editProfile");
@@ -53,11 +54,12 @@ router.get('/:id/profile/edit', async (req,res,next) => {
 
 })
 
-router.post('/:id/profile/edit', async (req,res, next) => {
+router.post('/:id/profile/edit', upload.single("image"), async (req,res, next) => {
     
     try {
-
-        let user = await User.findByIdAndUpdate (req.params.id, req.body);
+        console.log(req.file.filename, 'hey image.');
+        console.log(req.body, 'ojojojojojo');
+        let user = await User.findByIdAndUpdate (req.params.id, {username: req.body.username, image: req.file.filename});
         res.redirect(`/shopping/${user.id}/profile`);
 
     } catch (error) {

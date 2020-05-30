@@ -14,6 +14,7 @@ require('./modules/passport');
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var shoppingRouter = require('./routes/shopping');
+var productRouter = require('./routes/products');
 
 var app = express();
 
@@ -51,6 +52,7 @@ app.use("/users", usersRouter);
 app.use(auth.checkLogged);
 app.use(auth.userInfo);
 app.use('/shopping', shoppingRouter);
+app.use('/products', productRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

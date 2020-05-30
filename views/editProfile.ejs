@@ -7,15 +7,13 @@
     <button class="profile-button"><a href="/" class="button-text">Home</a></button>
     <button class="profile-button"><a href="/shopping" class="button-text">Shop</a></button>
 
-    <form action="/shopping/<%= user.id %>/profile/edit" method="post">
+    <form action="/shopping/<%= user.id %>/profile/edit" method="POST" enctype="multipart/form-data">
         <input type="text" name="username" value="<%= user.username %>">
 
-        <div>
-            <label>Select your profile picture:</label>
+            <label>Update your profile picture:</label>
             <input type="file" name="image" />
-        </div>
 
-        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <button class="btn waves-effect waves-light" type="submit">Submit
             <i class="material-icons right">send</i>
         </button>
     </form>
