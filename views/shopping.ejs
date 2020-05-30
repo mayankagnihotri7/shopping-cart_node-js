@@ -10,13 +10,13 @@
     <body>
         <div class="container">
             <a href="/">Home</a>
-            <h1>Welcome to shopping!</h1>
+            <h1>Welcome to shopping <%= user.username %> !</h1>
 
-        <form action="/shopping/upload-profile-pic" enctype="multipart/form-data" method="post">
+        <form action="/shopping"  method="post" enctype="multipart/form-data">
 
             <div>
-                <label>Select your profile picture:</label>
-                <input type="file" name="profile_pic" />
+                <label>Select picture:</label>
+                <input type="file" name="image" />
             </div>
 
             <button class="btn waves-effect waves-light" type="submit" name="action">Upload Photo
@@ -25,6 +25,7 @@
             
         </form>
         
+        <a href="/shopping/<%= user.id %>/profile">Profile</a>
         <a href="/users/logout">Logout</a>
         
     </div>

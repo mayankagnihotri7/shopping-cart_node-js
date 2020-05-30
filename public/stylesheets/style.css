@@ -6,3 +6,38 @@ body {
 a {
   color: #00B7FF;
 }
+
+.profile-image {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  rotate: 90deg;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.profile-color {
+  background-color: lavender;
+}
+
+.profile-color:hover {
+  box-shadow: 1px 1px 5px black;
+  background-color: lightcoral;
+}
+
+.profile-button {
+  border: none;
+  font-size: 18px;
+}
+
+.profile-button:hover {
+  background-color: transparent;
+  border: 1px solid black;
+}
+
+.button-text {
+  color: blue;
+}

@@ -25,6 +25,7 @@ let userSchema = new Schema({
         type: Boolean,
         default: false
     },
+    image: String,
     verification: String,
     bio: String
 }, {timestamps: true});
