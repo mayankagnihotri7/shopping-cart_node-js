@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="/stylesheets/style.css">
+
+<div class="profile-color">
+    
+    <% product.forEach(product => { %>
+        <img src="/images/uploads/<%=  product.image %>" class="profile-image" />
+        <h1 class="profile-name">Name: <%= product.name %></h1>
+        <h2 class="profile-name">Price: <%= product.price %></h2>
+        <h2 class="profile-name">Description: <%= product.description %></h2>
+        <button class="profile-button"><a href="/shopping" class="button-text">Shop</a></button>
+        <button class="profile-button"><a href="/products/singleProduct" class="button-text">Add To Cart</a></button>
+        <button class="profile-button"><a href="/products/<%= product.id %>/editProduct" class="button-text">Edit</a></button>
+        <button class="profile-button"><a href="/products/<%= product.id %>/delete" class="button-text">Delete</a></button>
+    <% }) %>
+    
+</div>

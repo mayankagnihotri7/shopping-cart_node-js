@@ -5,15 +5,18 @@
 <div class="container">
 <a href="/">Home</a>
 
-<form action="/users/register" method="post">
+<form action="/users/register" method="POST" enctype="multipart/form-data">
+
     <input type="text" name="username" placeholder="Enter desired username">
     <input type="email" name="email" placeholder="Enter your email...">
+    <input type="password" name="password" placeholder="Enter password">
+
     <div>
         <label>Select your profile picture:</label>
         <input type="file" name="image" />
     </div>
-    <input type="password" name="password" placeholder="Enter password">
-    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+
+    <button class="btn waves-effect waves-light" type="submit">Submit
         <i class="material-icons right">send</i>
     </button>
 </form>

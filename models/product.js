@@ -9,21 +9,24 @@ let productSchema = new Schema ( {
     },
     price: {
         type: Number,
+        min: 0,
+        default: 0,
         required: true
     },
-    catgory: {
+    category: {
         type: String,
         required: true
     },
     quantity: {
         type: Number,
-        min: 1
+        min: 0,
+        default: 0
     },
-    reviews: [String],
-    cart: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    description: {
+        type: String,
+        required: true
+    },
+    reviews: [{type: Schema.Types.ObjectId, ref: 'User'}]
 }, {timestamps: true} )
 
 module.exports = mongoose.model('Product', productSchema);

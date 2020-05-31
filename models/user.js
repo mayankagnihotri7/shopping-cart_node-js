@@ -27,7 +27,8 @@ let userSchema = new Schema({
     },
     image: String,
     verification: String,
-    bio: String
+    bio: String,
+    cart: {type: Schema.Types.ObjectId, ref: 'Product'}
 }, {timestamps: true});
 
 // Hashing password.

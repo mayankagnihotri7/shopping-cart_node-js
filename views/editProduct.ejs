@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<div class="container">
+
+    <button class="profile-button"><a href="/" class="button-text">Home</a></button>
+    <button class="profile-button"><a href="/shopping" class="button-text">Shop</a></button>
+
+    <form action="/products/<%= product.id %>/editProduct" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" value="<%= product.name %>">
+        <input type="number" name="price" value="<%= product.price %>">
+        <input type="text" name="description" value="<%= product.description %>">
+        <input type="text" name="category" value="<%= product.category %>">
+
+        <label>Update your profile picture:</label>
+        <input type="file" name="image" />
+
+        <button class="btn waves-effect waves-light" type="submit">Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+
+</div>

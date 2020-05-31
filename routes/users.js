@@ -1,9 +1,23 @@
 var express = require("express");
 var router = express.Router();
 var User = require('../models/user');
-let auth = require('../middlewares/auth');
 let nodemailer = require('nodemailer');
 let smtpTransport = require('nodemailer-smtp-transport');
+let multer = require('multer');
+let path = require('path');
+let Cart = require('../models/cart');
+
+// Multer
+const storage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+    callBack(null, path.join(__dirname, "../public/images/uploads"));
+},
+filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+},
+});
+
+var upload = multer({ storage: storage });
 
 /* GET users listing. */
 // Register form.
@@ -11,7 +25,7 @@ router.get("/register", (req, res, next) => {
   res.render("register");
 });
 
-router.post('/register', async (req,res,next) => {
+router.post('/register', upload.single("image"), async (req,res,next) => {
   
   const admins = ["mayankagnihotri7@gmail.com"]
 
@@ -49,6 +63,14 @@ router.post('/register', async (req,res,next) => {
 
   let createUser = await User.create(req.body);
   console.log(createUser, 'registering user');
+
+  let cart = await Cart.create({userId: createUser.id});
+
+  let updatedUser = await User.findByIdAndUpdate(createUser.id, cart.userId);
+  console.log(updatedUser, 'updating user');
+
+  console.log(cart, 'inside cart');
+
   res.render('login');
 
 })
