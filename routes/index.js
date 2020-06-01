@@ -15,7 +15,6 @@ router.get(
   "/auth/github/callback",
   passport.authenticate("github", { failureRedirect: "/users/login" }),
   (req, res) => {
-    console.log(req.user, "inside github auth");
     res.redirect('/shopping');
   }
 );

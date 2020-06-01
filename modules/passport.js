@@ -10,56 +10,56 @@ passport.use(
       callbackURL: "/auth/github/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile, 'profile');
       let newUser = {
-          username : profile.username,
-          email: profile._json.email,
-          bio: profile._json.bio,
-          photos: profile.photos[0].value,
-          id: profile.id
-      }
-      
+        username: profile.username,
+        email: profile._json.email,
+        bio: profile._json.bio,
+        photos: profile.photos[0].value,
+        id: profile.id,
+        admin: profile.admin,
+      };
+
+      console.log('new user created.')
+
       if (newUser.email === "mayankagnihotri7@gmail.com") {
+        done(null, newUser);
 
-        done(null, newUser)
-
-          User.findOne({email: newUser.email}, (err, user) => {
-
-              if(!user){
-
-                  User.create({
-                    username: profile.username,
-                    email: profile._json.email,
-                    bio: profile._json.bio,
-                    photos: profile.photos[0].value,
-                    password: process.env.PASSWORD,
-                    admin: true,
-                    id: profile.id
-                  },(err, admin) => {
-                    
-                    done(null, admin);
-                    console.log(admin,'admin here');
-
-                  });
+        User.findOne({ email: newUser.email }, (err, user) => {
+          console.log('user found');
+          if (!user) {
+            User.create(
+              {
+                username: profile.username,
+                email: profile._json.email,
+                bio: profile._json.bio,
+                photos: profile.photos[0].value,
+                password: process.env.PASSWORD,
+                admin: true,
+                id: profile.id,
+              },
+              (err, admin) => {
+                done(null, admin);
+                console.log('user from passport created.')
               }
-          })
-
+            );
+          } else done(null, user);
+        });
       } else {
-          done(null, false);
+        done(null, false);
+        console.log('user already created.');
       }
-
     }
   )
 );
 
 // Serialize.
 passport.serializeUser((user, done) => {
-    console.log(user, 'inside serialize.');
-    done(null, user);
-})
+  console.log("serialize")
+  done(null, user);
+});
 
 // Deserialize.
-passport.deserializeUser((id,done) => {
-    console.log(id, 'inside deserialize');
-    done(null, id);
-})
+passport.deserializeUser((id, done) => {
+  console.log("deserialize");
+  done(null, id);
+});

@@ -2,14 +2,15 @@ let User = require('../models/user');
 let passport = require('passport');
 
 exports.checkLogged = (req,res,next) => {
-    console.log('in middlewares')
+    console.log("inside checking logged.");
     
     if (req.session && req.session.userId) {
-      console.log(req.session, "inside checking logged.");
       return next();
+    } else if (req.session.passport) {
+        return next();
     } else {
-        console.log('inside else condtions')
-      return res.redirect("/users/login")
+        console.log('inside checking logged else condition');
+     return res.redirect("/users/login");
     }
 }
 
@@ -17,21 +18,19 @@ exports.userInfo = (req,res,next) => {
 
     if (req.session.passport) {
         req.session.userId = req.session.passport.user;
-        console.log('inside passport')
-        next()
-    }
-
-    if (req.session.userId) {
+        console.log(req.session.userId, "inside user info");
+      return  next();
+    } else if (req.session.userId) {
         User.findById(req.session.userId, "-password", (err,user) => {
             console.log(user, 'inside auth');
             req.userId = user;
             res.locals.user = user;
-                    next();
+            return next();
 
         })
     } else {
         req.userId = null;
         res.locals.user = null;
-        next()
+       return next()
     }
 }
