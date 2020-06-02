@@ -22,7 +22,7 @@ passport.use(
       console.log('new user created.')
 
       if (newUser.email === "mayankagnihotri7@gmail.com") {
-        done(null, newUser);
+        // done(null, newUser);
 
         User.findOne({ email: newUser.email }, (err, user) => {
           console.log('user found');
@@ -55,7 +55,7 @@ passport.use(
 // Serialize.
 passport.serializeUser((user, done) => {
   console.log("serialize")
-  done(null, user);
+  done(null, user._id);
 });
 
 // Deserialize.

@@ -3,6 +3,7 @@ let router = express.Router();
 let multer = require("multer");
 let path = require("path");
 let User = require("../models/user");
+let Product = require('../models/product');
 
 // Multer
 const storage = multer.diskStorage({
@@ -75,16 +76,27 @@ router.post(
 );
 
 // Rendering shopping page if verified.
-router.get("/", (req, res, next) => {
+router.get("/", async (req, res, next) => {
   
-  // console.log(req.session.passport.user, "verify router");
+  console.log(req.session.userId, "verify router");
 
-  if (!req.session.userId) {
-    console.log("user not verified");
-    return res.render("verifyForm", { email: req.userId.email });
+  if (req.session && req.session.userId) {
+
+    let product = await Product.find({})
+    res.render("shopping", {product});
+
+  } else if (req.session && req.session.passport.user) {
+    
+    let product = await Product.find({});
+    res.render("shopping", { product });
+
+  } else {
+    
+    console.log('not verified');
+    res.render('verifyForm');
+
   }
-  // console.log("inside profile router.", req.userId.isVerified);
-  res.render("shopping");
+
 });
 
 module.exports = router;

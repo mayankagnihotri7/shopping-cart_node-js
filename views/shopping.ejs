@@ -10,13 +10,35 @@
     <body>
         <div class="container">
             <a href="/">Home</a>
-            <h1>Welcome to shopping <%= user.username %> !</h1>
 
-            <a href="/products/addProduct">Add Products</a>
-        
-        <a href="/shopping/<%= user.id %>/profile">Profile</a>
-        <a href="/users/logout">Logout</a>
-        
+            <% if (admin) { %>
+                <h1>Welcome to shopping <%= admin.username %> !</h1>
+                <a href="/products/addProduct">Add Products</a>
+            <% } %>
+            
+            <% if (!admin) { %>
+                <h1>Welcome to shopping <%= user.username %> !</h1>
+            <% } %>
+
+
+            <% product.forEach(product => { %>
+            <img src="/images/uploads/<%=  product.image %>" />
+            <a href="/products/<%= product.id %>/singleProduct"><h1 class="profile-name">Name: <%= product.name %></h1></a>
+            <h2 class="profile-name">Price: <%= product.price %></h2>
+           <% }) %>
+
+           
+           <% if (admin === 'true') { %>
+            <a href="/products/singleProduct">View Products</a>
+            <a href="/shopping/<%= admin.id %>/profile">Profile</a>
+            <a href="/users/logout">Logout</a>
+        <% } %>
+
+        <% if (!admin) { %>
+            <a href="/shopping/<%= user.id %>/profile">Profile</a>
+            <a href="/users/logout">Logout</a>
+        <% } %>
+
     </div>
 </body>
 

@@ -28,7 +28,7 @@ router.get("/register", (req, res, next) => {
 
 router.post('/register', upload.single("image"), async (req,res,next) => {
   
-  const admins = ["mayankagnihotri7@gmail.com"]
+  // const admins = ["mayankagnihotri7@gmail.com"]
 
   // Nodemailer
   let transporter = nodemailer.createTransport(smtpTransport({
@@ -56,12 +56,12 @@ router.post('/register', upload.single("image"), async (req,res,next) => {
     console.log("Message sent: %", info.response);
   });
 
-  if(admins.includes(req.body.email)){
-    req.body.admin = true;
-    req.body.image = req.file.filename;
-    let createUser = await User.create(req.body);
-    console.log(createUser, "registering user");
-  }
+  // if(admins.includes(req.body.email)){
+  //   req.body.admin = true;
+  //   req.body.image = req.file.filename;
+  //   let createUser = await User.create(req.body);
+  //   console.log(createUser, "registering user");
+  // }
 
   req.body.image = req.file.filename;
   
@@ -106,20 +106,40 @@ router.post('/:email/verify', async(req,res,next) => {
 router.get("/login", (req, res, next) => {
   console.log('get login form')
   if (req.session.userId) {
-    return res.render("shopping");
+    return res.redirect("/shopping");
   }
     res.render("login");
 });
 
 router.post('/login', (req,res,next) => {
-  console.log('post login router');
-  let { email, password, username } = req.body;
+
+  let { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.redirect("/users/login");
+    }
+
   User.findOne({email}, (err, user) => {
+
+  console.log(err, user, "post login router");
+    // handle error
+    if (err) return err;
     
+    if (!user) {
+      return res.redirect('/users/login');
+    }
+
+
+    if (!user.verify(password)) {
+      return res.redirect('/users/login');
+    }
+
     req.session.userId = user.id;
     req.session.username = user.username;
     console.log(req.session, 'inside findone of login.');
+
     res.redirect('/shopping');
+
   })
 })
 
@@ -128,8 +148,8 @@ router.get('/logout', (req,res,next) => {
   if (req.session.userId) {
     console.log(req.session, 'inside logout')
     req.session.destroy(function (err) {
-      if (err) return res.redirect('/users/login');
-      return res.redirect('/users/login');
+      if (err) console.log(err, 'error occured.');
+      else return res.redirect('/users/login');
     })
   }
 })

@@ -16,21 +16,31 @@ exports.checkLogged = (req,res,next) => {
 
 exports.userInfo = (req,res,next) => {
 
-    if (req.session.passport) {
-        req.session.userId = req.session.passport.user;
-        console.log(req.session.userId, "inside user info");
-      return  next();
-    } else if (req.session.userId) {
+    if (req.session && req.session.userId) {
         User.findById(req.session.userId, "-password", (err,user) => {
-            console.log(user, 'inside auth');
             req.userId = user;
             res.locals.user = user;
             return next();
-
         })
     } else {
         req.userId = null;
         res.locals.user = null;
        return next()
+    }
+}
+
+exports.adminInfo = (req,res,next) => {
+    if (req.session.passport) {
+        console.log(req.session.passport.user, 'inside admin');
+    User.findById(req.session.passport.user, "-password", (err, admin) => {
+        console.log(admin, 'finding admin');
+        req.adminId = admin;
+        res.locals.admin = admin;
+        return next();
+    });
+    } else {
+        req.adminId = null;
+        res.locals.admin = null;
+        return next();
     }
 }

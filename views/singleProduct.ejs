@@ -4,16 +4,24 @@
 <link rel="stylesheet" href="/stylesheets/style.css">
 
 <div class="profile-color">
+    <a href="/">Home</a>
     
-    <% product.forEach(product => { %>
         <img src="/images/uploads/<%=  product.image %>" class="profile-image" />
         <h1 class="profile-name">Name: <%= product.name %></h1>
         <h2 class="profile-name">Price: <%= product.price %></h2>
         <h2 class="profile-name">Description: <%= product.description %></h2>
         <button class="profile-button"><a href="/shopping" class="button-text">Shop</a></button>
-        <button class="profile-button"><a href="/products/singleProduct" class="button-text">Add To Cart</a></button>
-        <button class="profile-button"><a href="/products/<%= product.id %>/editProduct" class="button-text">Edit</a></button>
-        <button class="profile-button"><a href="/products/<%= product.id %>/delete" class="button-text">Delete</a></button>
-    <% }) %>
+        
+        <form action="/products/<%= product.id %>/singleProduct" method="post">
+            <button class="profile-button">Add To Cart</button>
+        </form>
+
+        <a href="/reviews/<%= review.id %>">Write review</a>
+
+        <% if (admin) { %>
+            <button class="profile-button"><a href="/products/cart" class="button-text">My Cart</a></button>
+            <button class="profile-button"><a href="/products/<%= product.id %>/editProduct" class="button-text">Edit</a></button>
+            <button class="profile-button"><a href="/products/<%= product.id %>/delete" class="button-text">Delete</a></button>
+        <% } %>
     
 </div>
