@@ -2,8 +2,15 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let reviewSchema = new Schema({
-    author : String,
-    content: String,
+    author : {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    title: String,
+    content: {
+        type: String,
+        trim: true
+    },
     productId: {
         type: Schema.Types.ObjectId,
         ref: 'Product'

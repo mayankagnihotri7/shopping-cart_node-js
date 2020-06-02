@@ -1,1 +1,9 @@
 <h1>Hello I am Cart Page</h1>
+
+<% cart.forEach(c => { %>
+    <% console.log(c, 'inside cart each') %>
+    <img src="/images/uploads/<%= c.product.image %>" alt="image">
+    <h1><%= c.product.name %></h1>
+    <h2><%= c.quantity %></h2>
+    <h3><%= c.product.category %></h3>
+<% }) %>

@@ -68,12 +68,6 @@ router.post('/register', upload.single("image"), async (req,res,next) => {
   let createUser = await User.create(req.body);
   console.log(createUser, 'registering user');
 
-  let cart = await Cart.create({userId: createUser.id});
-  console.log(cart, 'inside cart');
-
-  let updatedUser = await User.findByIdAndUpdate(createUser.id, {cart: cart.userId}, {new:true});
-  console.log(updatedUser, 'updating user');
-
   console.log('post register');
   res.render('login');
 
@@ -146,11 +140,9 @@ router.post('/login', (req,res,next) => {
 // Logout user.
 router.get('/logout', (req,res,next) => {
   if (req.session.userId) {
-    console.log(req.session, 'inside logout')
-    req.session.destroy(function (err) {
-      if (err) console.log(err, 'error occured.');
-      else return res.redirect('/users/login');
-    })
+    req.session.destroy();
+    res.clearCookie('connect.sid');
+    res.redirect('/users/login');
   }
 })
 

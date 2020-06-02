@@ -12,14 +12,18 @@
         <h2 class="profile-name">Description: <%= product.description %></h2>
         <button class="profile-button"><a href="/shopping" class="button-text">Shop</a></button>
         
-        <form action="/products/<%= product.id %>/singleProduct" method="post">
+        <form action="/products/<%= product.id %>/cart/add" method="post">
             <button class="profile-button">Add To Cart</button>
         </form>
 
-        <a href="/reviews/<%= review.id %>">Write review</a>
+        <a href="/products/<%= product.id %>/review/add">Write review</a>
+
+        <% product.reviews.forEach(review => { %>
+            <h1><%= review.title %></h1>
+        <% }) %>
+        <button class="profile-button"><a href="/products/cart" class="button-text">My Cart</a></button>
 
         <% if (admin) { %>
-            <button class="profile-button"><a href="/products/cart" class="button-text">My Cart</a></button>
             <button class="profile-button"><a href="/products/<%= product.id %>/editProduct" class="button-text">Edit</a></button>
             <button class="profile-button"><a href="/products/<%= product.id %>/delete" class="button-text">Delete</a></button>
         <% } %>

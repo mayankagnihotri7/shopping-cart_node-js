@@ -15,7 +15,6 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var shoppingRouter = require('./routes/shopping');
 var productRouter = require('./routes/products');
-var reviewRouter = require('./routes/reviews');
 
 var app = express();
 
@@ -55,7 +54,6 @@ mongoose.connect(
     app.use(auth.adminInfo);
     app.use('/shopping', shoppingRouter);
     app.use('/products', productRouter);
-    app.use('/reviews', reviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
