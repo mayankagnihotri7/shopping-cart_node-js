@@ -14,6 +14,8 @@
             <% if (admin) { %>
                 <h1>Welcome to shopping <%= admin.username %> !</h1>
                 <a href="/products/addProduct">Add Products</a>
+                <a href="/users/allUsers">Show all users</a>
+                <a href="/users/logout">Logout</a>
             <% } %>
             
             <% if (!admin) { %>
@@ -29,9 +31,7 @@
 
            
            <% if (admin === 'true') { %>
-            <a href="/products/singleProduct">View Products</a>
             <a href="/shopping/<%= admin.id %>/profile">Profile</a>
-            <a href="/users/logout">Logout</a>
         <% } %>
 
         <% if (!admin) { %>

@@ -137,13 +137,17 @@ router.post('/login', (req,res,next) => {
   })
 })
 
+// Show all users.
+router.get('/allUsers', async (req,res,next) => {
+  let user = await User.find({});
+  res.render('allUsers', {user});
+})
+
 // Logout user.
 router.get('/logout', (req,res,next) => {
-  if (req.session.userId) {
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.redirect('/users/login');
-  }
 })
 
 module.exports = router;

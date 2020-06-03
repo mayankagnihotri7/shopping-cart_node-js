@@ -18,9 +18,10 @@
 
         <a href="/products/<%= product.id %>/review/add">Write review</a>
 
-        <% product.reviews.forEach(review => { %>
+        <% product.reviews.forEach(review => { 
+            console.log(review.author)%>
             <h1><%= review.title %></h1>
-            <h2><%= review.author %></h2>
+            <h2><%= review.author.username %></h2>
             <h3><%= review.content %></h3>
             <a href="/products/<%= product.id %>/review/<%=review.id%>/edit">Edit review</a>
             <a href="/products/<%= product.id %>/review/<%=review.id%>/delete">Delete review</a>

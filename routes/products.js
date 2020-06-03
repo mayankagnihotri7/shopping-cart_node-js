@@ -123,8 +123,10 @@ router.get("/:id/review/add", (req, res, next) => {
 
 router.post("/:id/review/add", async (req, res, next) => {
   try {
-    req.body.user = req.userId;
-    req.body.product = req.params.id;
+    console.log(req.user, 'sdcvbiseviubsna')
+    req.body.author = req.user;
+    console.log(req.body.author, 'hello');
+    req.body.productId= req.params.id;
 
     let review = await Review.create(req.body);
 
@@ -155,18 +157,40 @@ router.post("/:id/review/:reviewId/edit", async (req,res,next) => {
 
   try {
     let reviewId = req.params.reviewId;
-    let review = await Review.findByIdAndUpdate(reviewId, req.body);
-    res.redirect(`/products/${req.params.id}/singleProduct`)
+    let review = await Review.findByIdAndUpdate(reviewId, req.body, {new: true});
+    res.redirect(`/products/${req.params.id}/singleProduct`);
   } catch (error) {
     next(error);
   }
 
 });
 
+// Delete Product.
+router.get('/:id/delete', async (req,res,next) => {
+  
+  try {
+
+    let product = await Product.findByIdAndDelete(req.params.id);
+    
+    let review = await Review.deleteMany({productId: req.params.id});
+
+    let cart = await Cart.findOne({product: req.params.id});
+    
+    res.redirect('/shopping');
+
+  } catch (error) {
+
+    next(error);
+
+  }
+
+})
+
 // Deleting reviews.
 router.get("/:id/review/:reviewId/delete", async (req,res,next) => {
   let reviewId = req.params.reviewId;
   let review = await Review.findByIdAndDelete(reviewId);
+  let product = await Product.findByIdAndUpdate(req.params.id, {$pull: {reviews: review.id}});
   res.redirect(`/products/${req.params.id}/singleProduct`);
 });
 
