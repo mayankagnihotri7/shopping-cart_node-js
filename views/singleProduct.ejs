@@ -20,7 +20,12 @@
 
         <% product.reviews.forEach(review => { %>
             <h1><%= review.title %></h1>
+            <h2><%= review.author %></h2>
+            <h3><%= review.content %></h3>
+            <a href="/products/<%= product.id %>/review/<%=review.id%>/edit">Edit review</a>
+            <a href="/products/<%= product.id %>/review/<%=review.id%>/delete">Delete review</a>
         <% }) %>
+
         <button class="profile-button"><a href="/products/cart" class="button-text">My Cart</a></button>
 
         <% if (admin) { %>

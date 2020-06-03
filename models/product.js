@@ -26,7 +26,7 @@ let productSchema = new Schema ( {
         type: String,
         required: true
     },
-    reviews: [{type: Schema.Types.ObjectId, ref: 'User'}]
+    reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}]
 }, {timestamps: true} )
 
 module.exports = mongoose.model('Product', productSchema);
