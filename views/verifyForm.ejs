@@ -10,7 +10,7 @@
     <div class="container">
         <a href="/">Home</a>
 
-        <form action="/users/<%= email %>/verify" method="post">
+        <form action="/users/<%= createUser.email %>/verify" method="post">
             <input type="text" name="verification" placeholder="Enter verification code">
 
             <button class="btn waves-effect waves-light" type="submit" name="action">Verify

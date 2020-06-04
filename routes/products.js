@@ -123,9 +123,7 @@ router.get("/:id/review/add", (req, res, next) => {
 
 router.post("/:id/review/add", async (req, res, next) => {
   try {
-    console.log(req.user, 'sdcvbiseviubsna')
     req.body.author = req.user;
-    console.log(req.body.author, 'hello');
     req.body.productId= req.params.id;
 
     let review = await Review.create(req.body);

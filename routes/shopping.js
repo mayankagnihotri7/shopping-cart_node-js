@@ -27,16 +27,13 @@ router.get("/:id/profile", async (req, res, next) => {
 });
 
 router.post("/:id/profile", upload.single("image"), (req, res, next) => {
-  console.log("Body", req.body);
   req.body.image = req.file.filename;
-  console.log("file path", shoppingImage);
 
   User.findByIdAndUpdate(
     req.params.id,
     req.body,
     (err, user) => {
       if (err) return err;
-      console.log(user, "user here");
       res.render("profile");
     }
   );
@@ -60,7 +57,6 @@ router.post(
   async (req, res, next) => {
 
     try {
-      console.log(req.file.filename, "hey image.");
 
       let user = await User.findByIdAndUpdate(req.params.id, {
         username: req.body.username,
@@ -77,8 +73,6 @@ router.post(
 
 // Rendering shopping page if verified.
 router.get("/", async (req, res, next) => {
-  
-  console.log(req.session.userId, "verify router");
 
   if (req.session && req.session.userId) {
 

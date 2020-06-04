@@ -27,6 +27,10 @@ let userSchema = new Schema({
     },
     image: String,
     verification: String,
+    isBlock: {
+        type: Boolean,
+        default: false
+    },
     bio: String,
     cart: [{type: Schema.Types.ObjectId, ref: 'Cart'}]
 }, {timestamps: true});

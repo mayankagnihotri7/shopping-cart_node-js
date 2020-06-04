@@ -22,7 +22,6 @@ var upload = multer({ storage: storage });
 /* GET users listing. */
 // Register form.
 router.get("/register", (req, res, next) => {
-  console.log('get for register')
   res.render("register");
 });
 
@@ -66,39 +65,33 @@ router.post('/register', upload.single("image"), async (req,res,next) => {
   req.body.image = req.file.filename;
   
   let createUser = await User.create(req.body);
-  console.log(createUser, 'registering user');
 
-  console.log('post register');
-  res.render('login');
+  res.render("verifyForm", {createUser});
 
 })
 
 //verification route
 router.post('/:email/verify', async(req,res,next) => {
-  console.log('verify router');
+
   try{
     var user = await User.findOne({email: req.params.email})
-    console.log(user, 'finding user');
     if (user.verification === req.body.verification) {
       var updateUser = await User.updateOne(
         { email: req.params.email },
         { isVerified: true },
         { new: true }
       );
-      res.redirect("/shopping")
+      res.redirect("/users/login");
     } else if(!user.verification === req.body.verification){
-      console.log('verify router fail.')
-      res.send("not verified")
+      res.redirect('/users/login');
     }
   }catch(err){
     next(err)
-    console.log(err)
   }
 })
 
 // Login form
 router.get("/login", (req, res, next) => {
-  console.log('get login form')
   if (req.session.userId) {
     return res.redirect("/shopping");
   }
@@ -115,7 +108,6 @@ router.post('/login', (req,res,next) => {
 
   User.findOne({email}, (err, user) => {
 
-  console.log(err, user, "post login router");
     // handle error
     if (err) return err;
     
@@ -123,14 +115,20 @@ router.post('/login', (req,res,next) => {
       return res.redirect('/users/login');
     }
 
-
     if (!user.verify(password)) {
+      return res.redirect('/users/login');
+    }
+
+    if (!user.isVerified) {
+      return res.render('verifyForm');
+    }
+
+    if (user.isBlock) {
       return res.redirect('/users/login');
     }
 
     req.session.userId = user.id;
     req.session.username = user.username;
-    console.log(req.session, 'inside findone of login.');
 
     res.redirect('/shopping');
 
@@ -141,6 +139,24 @@ router.post('/login', (req,res,next) => {
 router.get('/allUsers', async (req,res,next) => {
   let user = await User.find({});
   res.render('allUsers', {user});
+})
+
+// Block user.
+router.get('/:id/block', async (req,res,next) => {
+
+  let user = await User.findByIdAndUpdate(req.params.id, {isBlock: true}, {new: true});
+
+  res.redirect('/users/allUsers');
+
+})
+
+// Unblock user.
+router.get('/:id/unblock', async (req,res,next) => {
+
+  let user = await User.findByIdAndUpdate(req.params.id, {isBlock: false}, {new: true});
+
+  res.redirect('/users/allUsers');
+
 })
 
 // Logout user.

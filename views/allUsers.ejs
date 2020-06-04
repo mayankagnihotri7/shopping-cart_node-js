@@ -1,6 +1,31 @@
-<h1>Hello! I show you all users..</h1>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-<% user.forEach(user => { %>
-    <a href="/shopping/<%= user.id %>/profile"><%= user.username %></a>
-    <h3><%= user.email %></h3>
-<% }) %>
+<div class="container">
+    <h1>Hello! I'll be showing you all users..</h1>
+    <a href="/">Home</a>
+    
+    <div class="card" style="width: 18rem;">
+        
+        <% user.forEach(user => { %>
+        
+            <% console.log(user, 'inside the ejs file') %>
+        
+            <div class="card-body">
+            
+            <h3><%= user.email %></h3>
+            
+            <a href="/shopping/<%= user.id %>/profile" class="btn btn-primary"><%= user.username %></a>
+
+            <% if (!user.admin) { %>
+                <a href="/users/<%= user.id %>/block">Block</a>
+            <% } %>
+            
+            <% if (user.isBlock) { %>
+                <a href="/users/<%= user.id %>/unblock">Unblock</a>
+            <% } %>
+
+        </div>
+        <% }) %>
+    </div>
+</div>
