@@ -32,7 +32,7 @@ let userSchema = new Schema({
         default: false
     },
     bio: String,
-    cart: [{type: Schema.Types.ObjectId, ref: 'Cart'}]
+    cart: {type: Schema.Types.ObjectId, ref: 'Cart'}
 }, {timestamps: true});
 
 // Hashing password.

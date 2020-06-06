@@ -1,0 +1,11 @@
+
+<% products.forEach (product => { %>
+
+    <h1>You are viewing <%= product.category %> page.</h1>
+
+    <img src="/images/uploads/<%=  product.image %>" />
+    <a href="/products/<%= product.id %>/singleProduct">
+        <h1 class="profile-name">Name: <%= product.name %></h1>
+    </a>
+    <h2 class="profile-name">Price: <%= product.price %></h2>
+<% }) %>

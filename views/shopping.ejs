@@ -26,6 +26,7 @@
             <% product.forEach(product => { %>
             <img src="/images/uploads/<%=  product.image %>" />
             <a href="/products/<%= product.id %>/singleProduct"><h1 class="profile-name">Name: <%= product.name %></h1></a>
+            <a href="/products/<%= product.category %>"><%= product.category %></a>
             <h2 class="profile-name">Price: <%= product.price %></h2>
            <% }) %>
 

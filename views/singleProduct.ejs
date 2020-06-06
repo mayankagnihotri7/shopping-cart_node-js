@@ -18,20 +18,22 @@
 
         <a href="/products/<%= product.id %>/review/add">Write review</a>
 
-        <% product.reviews.forEach(review => { 
-            console.log(review.author)%>
-            <h1><%= review.title %></h1>
-            <h2><%= review.author.username %></h2>
-            <h3><%= review.content %></h3>
-            <a href="/products/<%= product.id %>/review/<%=review.id%>/edit">Edit review</a>
-            <a href="/products/<%= product.id %>/review/<%=review.id%>/delete">Delete review</a>
-        <% }) %>
-
-        <button class="profile-button"><a href="/products/cart" class="button-text">My Cart</a></button>
-
-        <% if (admin) { %>
-            <button class="profile-button"><a href="/products/<%= product.id %>/editProduct" class="button-text">Edit</a></button>
-            <button class="profile-button"><a href="/products/<%= product.id %>/delete" class="button-text">Delete</a></button>
+        <% if (product.reviews) { %>
+            
+            <% product.reviews.forEach(review => { %>
+                <h1><%= review.title %></h1>
+                <h3><%= review.content %></h3>
+                <a href="/products/<%= product.id %>/review/<%=review.id%>/edit">Edit review</a>
+                <a href="/products/<%= product.id %>/review/<%=review.id%>/delete">Delete review</a>
+            <% }) %>
+        
         <% } %>
+            
+            <button class="profile-button"><a href="/products/cart" class="button-text">My Cart</a></button>
+            
+            <% if (admin) { %>
+                <button class="profile-button"><a href="/products/<%= product.id %>/editProduct" class="button-text">Edit</a></button>
+                <button class="profile-button"><a href="/products/<%= product.id %>/delete" class="button-text">Delete</a></button>
+            <% } %>
     
 </div>

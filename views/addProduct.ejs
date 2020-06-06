@@ -2,18 +2,23 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="container">
-<form action="/products/addProduct" method="POST" enctype="multipart/form-data">
+    <% if (admin) { %>
+        <form action="/products/addProduct" method="POST" enctype="multipart/form-data">
+        
+            <input type="text" name="name" placeholder="Name...">
+            <input type="number" name="price" placeholder="Price...">
+            <input type="text" name="description" placeholder="Description...">
+            <input type="text" name="category" placeholder="Category...">
+        
+            <label>Add product image:</label>
+            <input type="file" name="image" />
+        
+            <button class="btn waves-effect waves-light" type="submit">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+     <% } else { %>
+         <h1>You need to be admin to view this page.</h1>
+     <% } %>
 
-    <input type="text" name="name" placeholder="Name...">
-    <input type="number" name="price" placeholder="Price...">
-    <input type="text" name="description" placeholder="Description...">
-    <input type="text" name="category" placeholder="Category...">
-
-    <label>Add product image:</label>
-    <input type="file" name="image" />
-
-    <button class="btn waves-effect waves-light" type="submit">Submit
-        <i class="material-icons right">send</i>
-    </button>
-</form>
 </div>

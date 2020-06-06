@@ -8,24 +8,24 @@
     <div class="card" style="width: 18rem;">
         
         <% user.forEach(user => { %>
-        
-            <% console.log(user, 'inside the ejs file') %>
-        
+
             <div class="card-body">
             
-            <h3><%= user.email %></h3>
-            
-            <a href="/shopping/<%= user.id %>/profile" class="btn btn-primary"><%= user.username %></a>
+                <h3><%= user.email %></h3>
+                
+                <a href="/shopping/<%= user.id %>/profile" class="btn btn-primary"><%= user.username %></a>
 
-            <% if (!user.admin) { %>
-                <a href="/users/<%= user.id %>/block">Block</a>
-            <% } %>
-            
-            <% if (user.isBlock) { %>
-                <a href="/users/<%= user.id %>/unblock">Unblock</a>
-            <% } %>
+                <% if (!user.admin) { %>
+                    <a href="/users/<%= user.id %>/block">Block</a>
+                <% } %>
+                
+                <% if (user.isBlock) { %>
+                    <a href="/users/<%= user.id %>/unblock">Unblock</a>
+                <% } %>
 
-        </div>
+            </div>
+        
         <% }) %>
+
     </div>
 </div>

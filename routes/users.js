@@ -66,6 +66,11 @@ router.post('/register', upload.single("image"), async (req,res,next) => {
   
   let createUser = await User.create(req.body);
 
+  let cart = await Cart.create({userId: createUser.id});
+  
+  createUser = await User.findByIdAndUpdate(createUser.id, { cart: cart.id }, {new: true});
+  console.log(createUser, "cart here");
+
   res.render("verifyForm", {createUser});
 
 })
