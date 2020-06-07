@@ -2,27 +2,26 @@
 <html>
 
 <head>
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
-    <div class="container mx-auto">
-        <a href="/">Home</a>
-
-        <form action="/users/login" method="post" class="w-full max-w-sm">
-            <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
-                <input type="email" name="email" id="exampleInputEmail1"
-                    aria-describedby="emailHelp" placeholder="Enter registered email" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" id="exampleInputPassword1"
-                    placeholder="Enter registered password" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
-            </div>
-            <button type="submit" class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded bg-gray-400 my-4 bg-yellow-200">Login</button>
-        </form>
-
+    
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+        <div>Shopping<span>Cart</span></div>
     </div>
+    <br>
+    <div class="login">
+        <form action="/users/login" method="post">
+            <input type="text" name="email" placeholder="Enter registered email"><br>
+            <input type="password" name="password" placeholder=" Enter registered password"><br>
+            <input type="submit" value="Login">
+            <h3>Not registered? <a href="/users/register">Click here</a></h3>
+        </form>
+    </div>
+
 </body>
 
 </html>

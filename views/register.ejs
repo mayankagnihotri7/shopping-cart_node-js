@@ -1,24 +1,31 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+<link rel="stylesheet" href="/stylesheets/style.css">
 
 <div class="container">
+
 <a href="/">Home</a>
 
+<div class="body"></div>
+<div class="grad"></div>
+<div class="header">
+    <div>Shopping<span>Cart</span></div>
+</div>
+<br>
+<div class="login">
 <form action="/users/register" method="POST" enctype="multipart/form-data">
 
-    <input type="text" name="username" placeholder="Enter desired username">
-    <input type="email" name="email" placeholder="Enter your email...">
-    <input type="password" name="password" placeholder="Enter password">
+    <input type="text" name="username" placeholder="Enter desired username..."><br>
+    <input type="email" name="email" placeholder="Enter your email..."><br>
+    <input type="password" name="password" placeholder="Enter password"><br>
 
-    <div>
+    <div class="register-btn">
         <label>Select your profile picture:</label>
         <input type="file" name="image" />
     </div>
 
-    <button class="btn waves-effect waves-light" type="submit">Submit
-        <i class="material-icons right">send</i>
-    </button>
+    <input type="submit" value="Register" class="register-btn"">
+    <h3>Already registered? <a href="/users/login">Click here</a></h3>
+
 </form>
+</div>
 
 </div>
