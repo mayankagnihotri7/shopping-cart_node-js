@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -7,12 +6,23 @@ a {
   color: #00B7FF;
 }
 
+.profile-color {
+  background-color: lavender;
+  width: 25%;
+  padding: 28px;
+  height: 100vh;
+}
+
+.profile-color:hover {
+  background-color: lightcoral;
+}
+
+
 .profile-image {
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
+  /* border-radius: 50%; */
+  width: 100%;
   /* rotate: 90deg; */
-  box-shadow: 1px 1px 5px turquoise;
+  box-shadow: 1px 1px 10px turquoise;
 }
 
 .profile-name {
@@ -20,18 +30,6 @@ a {
   font-weight: 200;
 }
 
-.profile-color {
-  background-color: lavender;
-  height: 100vh;
-  width: 25%;
-  padding-top: 20px;
-  padding-left: 20px;
-}
-
-.profile-color:hover {
-  box-shadow: 1px 1px 5px black;
-  background-color: lightcoral;
-}
 
 .profile-button {
   border: none;

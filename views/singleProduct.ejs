@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <link rel="stylesheet" href="/stylesheets/style.css">
@@ -12,24 +13,27 @@
         <h2 class="profile-name">Description: <%= product.description %></h2>
         <button class="profile-button"><a href="/shopping" class="button-text">Shop</a></button>
         
-        <form action="/products/<%= product.id %>/cart/add" method="post">
-            <button class="profile-button">Add To Cart</button>
-        </form>
-
-        <a href="/products/<%= product.id %>/review/add">Write review</a>
-
-        <% if (product.reviews) { %>
+        <% if (!admin) { %>
+            <form action="/products/<%= product.id %>/cart/add" method="post">
+                <button class="profile-button">Add To Cart</button>
+            </form>
             
-            <% product.reviews.forEach(review => { %>
-                <h1><%= review.title %></h1>
-                <h3><%= review.content %></h3>
-                <a href="/products/<%= product.id %>/review/<%=review.id%>/edit">Edit review</a>
-                <a href="/products/<%= product.id %>/review/<%=review.id%>/delete">Delete review</a>
-            <% }) %>
-        
-        <% } %>
+            <a href="/products/<%= product.id %>/review/add">Write review</a>
+            
+            <% if (product.reviews) { %>
+            
+                <% product.reviews.forEach(review => { %>
+                    
+                    <h1><%= review.title %></h1>
+                    <h3><%= review.content %></h3>
+                    <a href="/products/<%= product.id %>/review/<%=review.id%>/edit">Edit review</a>
+                    <a href="/products/<%= product.id %>/review/<%=review.id%>/delete">Delete review</a>
+                <% }) %>
+            
+            <% } %>
             
             <button class="profile-button"><a href="/products/cart" class="button-text">My Cart</a></button>
+        <% } %>
             
             <% if (admin) { %>
                 <button class="profile-button"><a href="/products/<%= product.id %>/editProduct" class="button-text">Edit</a></button>

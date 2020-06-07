@@ -210,7 +210,8 @@ router.get("/:id/delete", async (req, res, next) => {
     let cart = await Cart.findOne({ product: req.params.id });
     console.log(cart, "viewing deleted items in cart.");
 
-    // res.redirect('/shopping');
+    res.redirect('/shopping');
+    
   } catch (error) {
     next(error);
   }
