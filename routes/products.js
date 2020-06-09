@@ -117,23 +117,6 @@ router.post("/:id/cart/add", async (req, res, next) => {
     console.log(cart, "jiji");
     }
 
-    // let existingProduct = cart.product.find(item => item.id === productId);
-    // console.log(existingProduct, 'huuuuuuuuuuuuuuuuuu');
-
-    // if (existingProduct) {
-    //   existingProduct.quantity++
-    // } else {
-    //   // cart.product.push({productId, quantity: 1});
-    //   let cart = await Cart.findOneAndUpdate(
-    //   { userId: req.userId || req.user },
-    //   { $addToSet: { product: product.id } },
-    //   { new: true }
-    // ).populate("product");
-    // }
-
-    // let carte = await Cart.update(cart.id, {product: cart.product}, {new: true});
-    // console.log(carte, 'jiiiiiiiiiiii')
-
   } catch (error) {
     return next(error);
   }
